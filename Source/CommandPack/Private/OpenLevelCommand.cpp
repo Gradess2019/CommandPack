@@ -4,13 +4,11 @@
 #include "OpenLevelCommand.h"
 #include "Kismet/GameplayStatics.h"
 
-FString UOpenLevelCommand::DefaultOptions = FString(TEXT("Default"));
-
 bool UOpenLevelCommand::Init_Implementation(
 	UObject* InWorldContextObject,
 	FName InLevelName,
 	bool bInAbsolute,
-	FString& InOptions
+	const FString& InOptions
 )
 {
 	const bool bResult = InitWorldContext(InWorldContextObject);

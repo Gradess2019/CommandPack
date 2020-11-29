@@ -8,7 +8,7 @@
 
 
 /**
- * 
+ * Command to open level
  */
 UCLASS()
 class COMMANDPACK_API UOpenLevelCommand : public UBaseCommand
@@ -19,18 +19,18 @@ class COMMANDPACK_API UOpenLevelCommand : public UBaseCommand
 
 public:
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Command Pack", meta=(AdvancedDisplay=1))
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Command Pack | Open Level Command", meta=(AdvancedDisplay=1))
 	bool Init(
 		UPARAM(DisplayName="WorldContextObject") UObject* InWorldContextObject,
 		UPARAM(DisplayName="LevelName") FName InLevelName,
-		UPARAM(DisplayName="Absolute") bool bInAbsolute,
-		UPARAM(DisplayName="Options") FString& InOptions
+		UPARAM(DisplayName="Absolute") bool bInAbsolute = true,
+		UPARAM(DisplayName="Options") const FString& InOptions = FString(TEXT(""))
 	);
 	virtual bool Init_Implementation(
 		UObject* InWorldContextObject,
 		FName InLevelName,
-		bool bInAbsolute = true,
-		FString& InOptions = DefaultOptions
+		bool bInAbsolute,
+		const FString& InOptions
 	);
 
 	virtual void Execute_Implementation() override;
