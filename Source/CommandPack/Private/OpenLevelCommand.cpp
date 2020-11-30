@@ -6,21 +6,17 @@
 
 bool UOpenLevelCommand::Init_Implementation(
 	UObject* InWorldContextObject,
-	FName InLevelName,
-	bool bInAbsolute,
-	const FString& InOptions
+	FOpenLevelCommandData InData
 )
 {
 	const bool bResult = InitWorldContext(InWorldContextObject);
 
-	LevelName = InLevelName;
-	bAbsolute = bInAbsolute;
-	Options = InOptions;
+	Data = InData;
 
 	return bResult;
 }
 
 void UOpenLevelCommand::Execute_Implementation()
 {
-	UGameplayStatics::OpenLevel(WorldContextObject, LevelName, bAbsolute, Options);
+	UGameplayStatics::OpenLevel(WorldContextObject, Data.LevelName, Data.bAbsolute, Data.Options);
 }
