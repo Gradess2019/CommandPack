@@ -7,16 +7,13 @@
 
 bool UQuitCommand::Init_Implementation(
 	UObject* InWorldContextObject,
-	APlayerController* InSpecificPlayer,
-	EQuitPreference::Type InQuitPreference,
-	bool bInIgnorePlatformRestrictions
+	FQuitCommandData InData
 )
 {
 	const bool bResult = InitWorldContext(InWorldContextObject);
 	
-	PlayerController = InSpecificPlayer;
-	QuitPreference = InQuitPreference;
-	bIgnorePlatformRestrictions = bInIgnorePlatformRestrictions;
+	Data = InData;
+	
 	return bResult;
 }
 
@@ -24,8 +21,8 @@ void UQuitCommand::Execute_Implementation()
 {
 	UKismetSystemLibrary::QuitGame(
 		WorldContextObject,
-		PlayerController,
-		QuitPreference,
-		bIgnorePlatformRestrictions
+		Data.PlayerController,
+		Data.QuitPreference,
+		Data.bIgnorePlatformRestrictions
 	);
 }
