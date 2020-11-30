@@ -17,8 +17,8 @@ class COMMANDPACK_API UBaseCommand : public UObject
 public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Command Pack")
-	bool Init(UObject* InWorldContextObject);
-	virtual bool Init_Implementation(UObject* InWorldContextObject);
+	bool InitWorldContext(UObject* InWorldContextObject);
+	virtual bool InitWorldContext_Implementation(UObject* InWorldContextObject);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Command Pack")
 	void Execute();

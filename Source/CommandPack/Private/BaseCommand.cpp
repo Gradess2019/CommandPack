@@ -3,7 +3,7 @@
 
 #include "BaseCommand.h"
 
-bool UBaseCommand::Init_Implementation(UObject* InWorldContextObject)
+bool UBaseCommand::InitWorldContext_Implementation(UObject* InWorldContextObject)
 {
 	WorldContextObject = InWorldContextObject;
 	return IsValid(WorldContextObject);
