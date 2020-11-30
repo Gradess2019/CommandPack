@@ -4,6 +4,7 @@
 #include "CreateWidgetCommand.h"
 
 #include "Blueprint/UserWidget.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Kismet/GameplayStatics.h"
 
 bool UCreateWidgetCommand::Init_Implementation(
@@ -32,9 +33,19 @@ UUserWidget* UCreateWidgetCommand::GetWidget_Implementation(bool& bSuccess)
 void UCreateWidgetCommand::Execute_Implementation()
 {
 	if (!IsValid(CommandData.UserWidgetClass)) { return; }
-	
-	Widget = CreateWidget(CommandData.Owner, CommandData.UserWidgetClass, CommandData.WidgetName);
-	if (!(IsValid(Widget) && CommandData.bAddToViewport)) { return; }
 
-	Widget->AddToViewport(CommandData.ZOrder);
+	Widget = CreateWidget(CommandData.Owner, CommandData.UserWidgetClass, CommandData.WidgetName);
+	if (!IsValid(Widget)) { return; }
+
+	if (CommandData.bAddToViewport)
+	{
+		Widget->AddToViewport(CommandData.ZOrder);
+	}
+	
+	if (CommandData.bUIMode)
+	{
+		UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx(CommandData.Owner, Widget, CommandData.MouseLockMode);
+	}
+	
+	CommandData.Owner->bShowMouseCursor = CommandData.bShowMouseCursor;
 }

@@ -15,8 +15,9 @@ struct FCreateWidgetCommandData
 	{
 		Owner = nullptr;
 		bAddToViewport = true;
-		bUIMode = true;
 		bShowMouseCursor = true;
+		bUIMode = true;
+		MouseLockMode = EMouseLockMode::DoNotLock;
 		ZOrder = 0;
 		WidgetName = NAME_None;
 	}
@@ -32,11 +33,14 @@ struct FCreateWidgetCommandData
 	bool bAddToViewport;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
-	bool bUIMode;
-
-	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
 	bool bShowMouseCursor;
 
+	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
+	bool bUIMode;
+	
+	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
+	EMouseLockMode MouseLockMode;
+	
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
 	int32 ZOrder;
 
