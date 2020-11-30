@@ -3,8 +3,9 @@
 
 #include "CreateWidgetCommand.h"
 
+
+#include "SetInputModeCommand.h"
 #include "Blueprint/UserWidget.h"
-#include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Kismet/GameplayStatics.h"
 
 bool UCreateWidgetCommand::Init_Implementation(
@@ -44,7 +45,10 @@ void UCreateWidgetCommand::Execute_Implementation()
 	
 	if (CommandData.bUIMode)
 	{
-		UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx(CommandData.Owner, Widget, CommandData.MouseLockMode);
+		auto SetInputModeCommand = NewObject<USetInputModeCommand>(this, USetInputModeCommand::StaticClass());
+		const auto InputCommandData = FSetInputModeCommandData(this->CommandData.Owner, EInputMode::UI, Widget);
+		SetInputModeCommand->Init(WorldContextObject, InputCommandData);
+		SetInputModeCommand->Execute();
 	}
 	
 	CommandData.Owner->bShowMouseCursor = CommandData.bShowMouseCursor;

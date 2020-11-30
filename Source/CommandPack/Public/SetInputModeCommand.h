@@ -19,6 +19,21 @@ struct FSetInputModeCommandData
 {
 	GENERATED_BODY()
 
+	FSetInputModeCommandData(
+		APlayerController* InPlayerController = nullptr,
+		EInputMode InInputMode = EInputMode::GameAndUI,
+		UUserWidget* InWidgetToFocus = nullptr,
+		EMouseLockMode InMouseLockMode = EMouseLockMode::DoNotLock,
+		bool bInHideCursorDuringCapture = true
+	)
+	{
+		PlayerController = InPlayerController;
+		InputMode = InInputMode;
+		WidgetToFocus = InWidgetToFocus;
+		MouseLockMode = InMouseLockMode;
+		bHideCursorDuringCapture = bInHideCursorDuringCapture;
+	}
+
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Set Input Mode Command")
 	APlayerController* PlayerController;
 
