@@ -37,10 +37,10 @@ struct FCreateWidgetCommandData
 
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
 	bool bUIMode;
-	
+
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
 	EMouseLockMode MouseLockMode;
-	
+
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
 	int32 ZOrder;
 
@@ -62,7 +62,8 @@ public:
 	UFUNCTION(
 		BlueprintCallable,
 		BlueprintNativeEvent,
-		Category = "Command Pack | Create Widget Command"
+		Category = "Command Pack | Create Widget Command",
+		meta = (WorldContext = "InWorldContextObject", CallableWithoutWorldContext)
 	)
 	bool Init(
 		UPARAM(DisplayName="WorldContextObject") UObject* InWorldContextObject,

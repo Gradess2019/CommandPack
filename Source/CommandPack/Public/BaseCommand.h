@@ -16,7 +16,12 @@ class COMMANDPACK_API UBaseCommand : public UObject
 
 public:
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Command Pack")
+	UFUNCTION(
+		BlueprintNativeEvent,
+		BlueprintCallable,
+		Category = "Command Pack",
+		meta = (WorldContext = "InWorldContextObject", CallableWithoutWorldContext)
+	)
 	bool InitWorldContext(UObject* InWorldContextObject);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Command Pack")

@@ -18,7 +18,12 @@ class COMMANDPACK_API UQuitCommand : public UBaseCommand
 
 public:
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Command Pack", meta=(AdvancedDisplay=1))
+	UFUNCTION(
+		BlueprintNativeEvent,
+		BlueprintCallable,
+		Category = "Command Pack",
+		meta=(AdvancedDisplay = 1, WorldContext = "InWorldContextObject", CallableWithoutWorldContext)
+	)
 	bool Init(
 		UObject* InWorldContextObject,
 		APlayerController* InSpecificPlayer = nullptr,

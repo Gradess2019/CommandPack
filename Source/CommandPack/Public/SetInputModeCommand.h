@@ -67,7 +67,8 @@ public:
 	UFUNCTION(
 		BlueprintCallable,
 		BlueprintNativeEvent,
-		Category = "Command Pack | Set Input Mode Command"
+		Category = "Command Pack | Set Input Mode Command",
+		meta = (WorldContext = "InWorldContextObject", CallableWithoutWorldContext)
 	)
 	bool Init(
 		UPARAM(DisplayName="WorldContextObject") UObject* InWorldContextObject,

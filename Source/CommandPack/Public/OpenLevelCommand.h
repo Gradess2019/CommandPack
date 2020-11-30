@@ -19,7 +19,12 @@ class COMMANDPACK_API UOpenLevelCommand : public UBaseCommand
 
 public:
 
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Command Pack | Open Level Command", meta=(AdvancedDisplay=1))
+	UFUNCTION(
+		BlueprintCallable,
+		BlueprintNativeEvent,
+		Category = "Command Pack | Open Level Command",
+		meta=(AdvancedDisplay = 1, WorldContext = "InWorldContextObject", CallableWithoutWorldContext)
+	)
 	bool Init(
 		UPARAM(DisplayName="WorldContextObject") UObject* InWorldContextObject,
 		UPARAM(DisplayName="LevelName") FName InLevelName,

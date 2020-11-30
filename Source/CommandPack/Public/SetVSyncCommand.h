@@ -21,7 +21,7 @@ public:
 		BlueprintCallable,
 		BlueprintNativeEvent,
 		Category = "Command Pack | Set VSync Command",
-		meta=(AdvancedDisplay=2)
+		meta=(AdvancedDisplay = 2, WorldContext = "InWorldContextObject", CallableWithoutWorldContext)
 	)
 	bool Init(
 		UPARAM(DisplayName="WorldContextObject") UObject* InWorldContextObject,
