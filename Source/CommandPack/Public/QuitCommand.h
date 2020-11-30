@@ -21,12 +21,6 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Command Pack", meta=(AdvancedDisplay=1))
 	bool Init(
 		UObject* InWorldContextObject,
-		APlayerController* InSpecificPlayer,
-		EQuitPreference::Type InQuitPreference,
-		bool bInIgnorePlatformRestrictions
-	);
-	virtual bool Init_Implementation(
-		UObject* InWorldContextObject,
 		APlayerController* InSpecificPlayer = nullptr,
 		EQuitPreference::Type InQuitPreference = EQuitPreference::Quit,
 		bool bInIgnorePlatformRestrictions = false

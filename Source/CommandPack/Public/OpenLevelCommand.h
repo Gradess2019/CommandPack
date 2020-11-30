@@ -26,12 +26,6 @@ public:
 		UPARAM(DisplayName="Absolute") bool bInAbsolute = true,
 		UPARAM(DisplayName="Options") const FString& InOptions = FString(TEXT(""))
 	);
-	virtual bool Init_Implementation(
-		UObject* InWorldContextObject,
-		FName InLevelName,
-		bool bInAbsolute,
-		const FString& InOptions
-	);
 
 	virtual void Execute_Implementation() override;
 

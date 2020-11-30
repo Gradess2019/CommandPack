@@ -18,11 +18,9 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Command Pack")
 	bool InitWorldContext(UObject* InWorldContextObject);
-	virtual bool InitWorldContext_Implementation(UObject* InWorldContextObject);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Command Pack")
 	void Execute();
-	virtual void Execute_Implementation();
 
 protected:
 
