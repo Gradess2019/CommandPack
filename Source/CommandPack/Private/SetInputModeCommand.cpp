@@ -5,23 +5,23 @@
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Kismet/GameplayStatics.h"
 
-bool USetInputModeCommand::Init_Implementation(UObject* InWorldContextObject, FSetInputModeCommandData InCommandData)
+bool USetInputModeCommand::Init_Implementation(UObject* InWorldContextObject, FSetInputModeCommandData InData)
 {
 	const auto bResult = InitWorldContext(InWorldContextObject);
 
-	if (IsValid(InCommandData.PlayerController))
+	if (IsValid(InData.PlayerController))
 	{
-		InCommandData.PlayerController = UGameplayStatics::GetPlayerController(WorldContextObject, 0);
+		InData.PlayerController = UGameplayStatics::GetPlayerController(WorldContextObject, 0);
 	}
 
-	CommandData = InCommandData;
+	Data = InData;
 
 	return bResult;
 }
 
 void USetInputModeCommand::Execute_Implementation()
 {
-	switch (CommandData.InputMode)
+	switch (Data.InputMode)
 	{
 	case EInputMode::GameAndUI:
 		{
@@ -46,25 +46,25 @@ void USetInputModeCommand::Execute_Implementation()
 void USetInputModeCommand::SetInputModeGameAndUI() const
 {
 	UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx(
-		CommandData.PlayerController,
-		CommandData.WidgetToFocus,
-		CommandData.MouseLockMode,
-		CommandData.bHideCursorDuringCapture
+		Data.PlayerController,
+		Data.WidgetToFocus,
+		Data.MouseLockMode,
+		Data.bHideCursorDuringCapture
 	);
 }
 
 void USetInputModeCommand::SetInputModeUIOnly() const
 {
 	UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx(
-		CommandData.PlayerController,
-		CommandData.WidgetToFocus,
-		CommandData.MouseLockMode
+		Data.PlayerController,
+		Data.WidgetToFocus,
+		Data.MouseLockMode
 	);
 }
 
 void USetInputModeCommand::SetInputModeGameOnly() const
 {
 	UWidgetBlueprintLibrary::SetInputMode_GameOnly(
-		CommandData.PlayerController
+		Data.PlayerController
 	);
 }

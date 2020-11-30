@@ -2,7 +2,6 @@
 
 
 #include "QuitCommand.h"
-
 #include "Kismet/KismetSystemLibrary.h"
 
 bool UQuitCommand::Init_Implementation(

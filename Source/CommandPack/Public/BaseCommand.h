@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
 #include "BaseCommand.generated.h"
 
 /**
@@ -19,16 +18,16 @@ public:
 	UFUNCTION(
 		BlueprintNativeEvent,
 		BlueprintCallable,
-		Category = "Command Pack",
+		Category = "Command Pack | Base Command",
 		meta = (WorldContext = "InWorldContextObject", CallableWithoutWorldContext)
 	)
 	bool InitWorldContext(UObject* InWorldContextObject);
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Command Pack")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Command Pack | Base Command")
 	void Execute();
 
 protected:
 
-	UPROPERTY(BlueprintReadWrite, Category = "Command Pack")
+	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Base Command")
 	UObject* WorldContextObject;
 };

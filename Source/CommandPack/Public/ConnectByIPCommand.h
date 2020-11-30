@@ -45,7 +45,7 @@ public:
 	)
 	bool Init(
 		UPARAM(DisplayName="WorldContextObject") UObject* InWorldContextObject,
-		UPARAM(DisplayName="CommandData") FConnectByIPCommandData InCommandData
+		UPARAM(DisplayName="Data") FConnectByIPCommandData InData
 	);
 
 	virtual void Execute_Implementation() override;
@@ -53,6 +53,5 @@ public:
 protected:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Connect By IP Command")
-	FConnectByIPCommandData CommandData;
-	
+	FConnectByIPCommandData Data;
 };

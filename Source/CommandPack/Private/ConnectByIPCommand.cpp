@@ -6,18 +6,18 @@
 
 bool UConnectByIPCommand::Init_Implementation(
 	UObject* InWorldContextObject,
-	FConnectByIPCommandData InCommandData
+	FConnectByIPCommandData InData
 )
 {
 	const auto bResult = InitWorldContext(InWorldContextObject);
 
-	CommandData = InCommandData;
+	Data = InData;
 
 	return bResult;
 }
 
 void UConnectByIPCommand::Execute_Implementation()
 {
-	const auto Command = FString(TEXT("open ")).Append(CommandData.IP);
-	UKismetSystemLibrary::ExecuteConsoleCommand(WorldContextObject, Command, CommandData.PlayerController);
+	const auto Command = FString(TEXT("open ")).Append(Data.IP);
+	UKismetSystemLibrary::ExecuteConsoleCommand(WorldContextObject, Command, Data.PlayerController);
 }

@@ -61,7 +61,6 @@ class COMMANDPACK_API USetInputModeCommand : public UBaseCommand
 {
 	GENERATED_BODY()
 
-
 public:
 
 	UFUNCTION(
@@ -72,7 +71,7 @@ public:
 	)
 	bool Init(
 		UPARAM(DisplayName="WorldContextObject") UObject* InWorldContextObject,
-		UPARAM(DisplayName="CommandData") FSetInputModeCommandData InCommandData
+		UPARAM(DisplayName="Data") FSetInputModeCommandData InData
 	);
 
 	virtual void Execute_Implementation() override;
@@ -88,6 +87,6 @@ public:
 
 protected:
 
-	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
-	FSetInputModeCommandData CommandData;
+	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Set Input Mode Command")
+	FSetInputModeCommandData Data;
 };

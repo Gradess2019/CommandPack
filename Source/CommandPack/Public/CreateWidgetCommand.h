@@ -56,7 +56,6 @@ class COMMANDPACK_API UCreateWidgetCommand : public UBaseCommand
 {
 	GENERATED_BODY()
 
-
 public:
 
 	UFUNCTION(
@@ -67,7 +66,7 @@ public:
 	)
 	bool Init(
 		UPARAM(DisplayName="WorldContextObject") UObject* InWorldContextObject,
-		UPARAM(DisplayName="CommandData") FCreateWidgetCommandData InCommandData
+		UPARAM(DisplayName="Data") FCreateWidgetCommandData InData
 	);
 
 	UFUNCTION(
@@ -82,7 +81,7 @@ public:
 protected:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
-	FCreateWidgetCommandData CommandData;
+	FCreateWidgetCommandData Data;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
 	UUserWidget* Widget;

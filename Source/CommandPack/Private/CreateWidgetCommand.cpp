@@ -2,25 +2,23 @@
 
 
 #include "CreateWidgetCommand.h"
-
-
 #include "SetInputModeCommand.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 
 bool UCreateWidgetCommand::Init_Implementation(
 	UObject* InWorldContextObject,
-	FCreateWidgetCommandData InCommandData
+	FCreateWidgetCommandData InData
 )
 {
 	const auto bResult = InitWorldContext(InWorldContextObject);
 
-	if (!IsValid(InCommandData.Owner))
+	if (!IsValid(InData.Owner))
 	{
-		InCommandData.Owner = UGameplayStatics::GetPlayerController(InWorldContextObject, 0);
+		InData.Owner = UGameplayStatics::GetPlayerController(InWorldContextObject, 0);
 	}
 
-	CommandData = InCommandData;
+	Data = InData;
 
 	return bResult;
 }
@@ -33,23 +31,23 @@ UUserWidget* UCreateWidgetCommand::GetWidget_Implementation(bool& bSuccess)
 
 void UCreateWidgetCommand::Execute_Implementation()
 {
-	if (!IsValid(CommandData.UserWidgetClass)) { return; }
+	if (!IsValid(Data.UserWidgetClass)) { return; }
 
-	Widget = CreateWidget(CommandData.Owner, CommandData.UserWidgetClass, CommandData.WidgetName);
+	Widget = CreateWidget(Data.Owner, Data.UserWidgetClass, Data.WidgetName);
 	if (!IsValid(Widget)) { return; }
 
-	if (CommandData.bAddToViewport)
+	if (Data.bAddToViewport)
 	{
-		Widget->AddToViewport(CommandData.ZOrder);
+		Widget->AddToViewport(Data.ZOrder);
 	}
 	
-	if (CommandData.bUIMode)
+	if (Data.bUIMode)
 	{
 		auto SetInputModeCommand = NewObject<USetInputModeCommand>(this, USetInputModeCommand::StaticClass());
-		const auto InputCommandData = FSetInputModeCommandData(this->CommandData.Owner, EInputMode::UI, Widget);
+		const auto InputCommandData = FSetInputModeCommandData(this->Data.Owner, EInputMode::UI, Widget);
 		SetInputModeCommand->Init(WorldContextObject, InputCommandData);
 		SetInputModeCommand->Execute();
 	}
 	
-	CommandData.Owner->bShowMouseCursor = CommandData.bShowMouseCursor;
+	Data.Owner->bShowMouseCursor = Data.bShowMouseCursor;
 }
