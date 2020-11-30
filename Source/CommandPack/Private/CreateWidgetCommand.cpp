@@ -8,24 +8,17 @@
 
 bool UCreateWidgetCommand::Init_Implementation(
 	UObject* InWorldContextObject,
-	APlayerController* InOwner,
-	TSubclassOf<UUserWidget> InUserWidgetClass,
-	FName InWidgetName,
-	bool bInAddToViewport,
-	int32 InZOrder
+	FCreateWidgetCommandData InCommandData
 )
 {
 	const auto bResult = InitWorldContext(InWorldContextObject);
 
-	if (!IsValid(InOwner))
+	if (!IsValid(InCommandData.Owner))
 	{
-		InOwner = UGameplayStatics::GetPlayerController(InWorldContextObject, 0);
+		InCommandData.Owner = UGameplayStatics::GetPlayerController(InWorldContextObject, 0);
 	}
 
-	Owner = InOwner;
-	UserWidgetClass = InUserWidgetClass;
-	WidgetName = InWidgetName;
-	bAddToViewport = bInAddToViewport;
+	CommandData = InCommandData;
 
 	return bResult;
 }
@@ -38,8 +31,10 @@ UUserWidget* UCreateWidgetCommand::GetWidget_Implementation(bool& bSuccess)
 
 void UCreateWidgetCommand::Execute_Implementation()
 {
-	Widget = CreateWidget(Owner, UserWidgetClass, WidgetName);
-	if (!(IsValid(Widget) && bAddToViewport)) { return; }
+	if (!IsValid(CommandData.UserWidgetClass)) { return; }
+	
+	Widget = CreateWidget(CommandData.Owner, CommandData.UserWidgetClass, CommandData.WidgetName);
+	if (!(IsValid(Widget) && CommandData.bAddToViewport)) { return; }
 
-	Widget->AddToViewport(ZOrder);
+	Widget->AddToViewport(CommandData.ZOrder);
 }
