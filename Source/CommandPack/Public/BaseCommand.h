@@ -3,6 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine.h"
+#include "UObject/Object.h"
+#include "GenericPlatform/GenericPlatformCrashContext.h"
 #include "BaseCommand.generated.h"
 
 /**

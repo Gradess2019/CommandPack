@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BaseCommand.h"
+#include "Blueprint/UserWidget.h"
 #include "SetInputModeCommand.generated.h"
 
 UENUM()
