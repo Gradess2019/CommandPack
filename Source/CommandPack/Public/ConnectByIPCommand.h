@@ -6,8 +6,29 @@
 #include "BaseCommand.h"
 #include "ConnectByIPCommand.generated.h"
 
+USTRUCT(BlueprintType)
+struct FConnectByIPCommandData
+{
+	GENERATED_BODY()
+
+	FConnectByIPCommandData(
+		const FString& InIP = FString(TEXT("127.0.0.1")),
+		APlayerController* InPlayerController = nullptr
+	)
+	{
+		IP = InIP;
+		PlayerController = InPlayerController;
+	}
+
+	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Connect By IP Command")
+	FString IP;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Connect By IP Command")
+	APlayerController* PlayerController;
+};
+
 /**
- * 
+ * Command to connect by ip
  */
 UCLASS()
 class COMMANDPACK_API UConnectByIPCommand : public UBaseCommand
@@ -20,12 +41,11 @@ public:
 		BlueprintCallable,
 		BlueprintNativeEvent,
 		Category = "Command Pack | Connect By IP Command",
-		meta=(AdvancedDisplay=2)
+		meta=(WorldContext = "InWorldContextObject", CallableWithoutWorldContext)
 	)
 	bool Init(
 		UPARAM(DisplayName="WorldContextObject") UObject* InWorldContextObject,
-		UPARAM(DisplayName="IP") const FString& InIP = FString(TEXT("127.0.0.1")),
-		UPARAM(DisplayName="PlayerController") APlayerController* InPlayerController = nullptr
+		UPARAM(DisplayName="Data") FConnectByIPCommandData InData
 	);
 
 	virtual void Execute_Implementation() override;
@@ -33,8 +53,5 @@ public:
 protected:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Connect By IP Command")
-	FString IP;
-
-	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Connect By IP Command")
-	APlayerController* PlayerController;
+	FConnectByIPCommandData Data;
 };

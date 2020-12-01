@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BaseCommand.h"
+#include "Blueprint/UserWidget.h"
 #include "CreateWidgetCommand.generated.h"
 
 USTRUCT(BlueprintType)
@@ -37,10 +38,10 @@ struct FCreateWidgetCommandData
 
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
 	bool bUIMode;
-	
+
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
 	EMouseLockMode MouseLockMode;
-	
+
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
 	int32 ZOrder;
 
@@ -56,17 +57,17 @@ class COMMANDPACK_API UCreateWidgetCommand : public UBaseCommand
 {
 	GENERATED_BODY()
 
-
 public:
 
 	UFUNCTION(
 		BlueprintCallable,
 		BlueprintNativeEvent,
-		Category = "Command Pack | Create Widget Command"
+		Category = "Command Pack | Create Widget Command",
+		meta = (WorldContext = "InWorldContextObject", CallableWithoutWorldContext)
 	)
 	bool Init(
 		UPARAM(DisplayName="WorldContextObject") UObject* InWorldContextObject,
-		UPARAM(DisplayName="CommandData") FCreateWidgetCommandData InCommandData
+		UPARAM(DisplayName="Data") FCreateWidgetCommandData InData
 	);
 
 	UFUNCTION(
@@ -81,7 +82,7 @@ public:
 protected:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
-	FCreateWidgetCommandData CommandData;
+	FCreateWidgetCommandData Data;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Create Widget Command")
 	UUserWidget* Widget;

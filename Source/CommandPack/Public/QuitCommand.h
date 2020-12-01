@@ -8,6 +8,32 @@
 
 #include "QuitCommand.generated.h"
 
+USTRUCT(BlueprintType)
+struct FQuitCommandData
+{
+	GENERATED_BODY()
+
+	FQuitCommandData(
+		APlayerController* InPlayerController = nullptr,
+		const TEnumAsByte<EQuitPreference::Type>& InQuitPreference = EQuitPreference::Quit,
+		bool bInIgnorePlatformRestrictions = false
+	)
+	{
+		PlayerController = InPlayerController;
+		QuitPreference = InQuitPreference;
+		bIgnorePlatformRestrictions = bInIgnorePlatformRestrictions;
+	}
+
+	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Quit Command")
+	APlayerController* PlayerController;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Quit Command")
+	TEnumAsByte<EQuitPreference::Type> QuitPreference;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Quit Command")
+	bool bIgnorePlatformRestrictions;
+};
+
 /**
  * Base command for quit game
  */
@@ -18,27 +44,21 @@ class COMMANDPACK_API UQuitCommand : public UBaseCommand
 
 public:
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Command Pack", meta=(AdvancedDisplay=1))
+	UFUNCTION(
+		BlueprintNativeEvent,
+		BlueprintCallable,
+		Category = "Command Pack | Quit Command",
+		meta=(WorldContext = "InWorldContextObject", CallableWithoutWorldContext)
+	)
 	bool Init(
 		UObject* InWorldContextObject,
-		APlayerController* InSpecificPlayer,
-		EQuitPreference::Type InQuitPreference,
-		bool bInIgnorePlatformRestrictions
-	);
-	virtual bool Init_Implementation(
-		UObject* InWorldContextObject,
-		APlayerController* InSpecificPlayer = nullptr,
-		EQuitPreference::Type InQuitPreference = EQuitPreference::Quit,
-		bool bInIgnorePlatformRestrictions = false
+		UPARAM(DisplayName="Data") FQuitCommandData InData
 	);
 
 	virtual void Execute_Implementation() override;
 
 protected:
 
-	APlayerController* PlayerController;
-
-	TEnumAsByte<EQuitPreference::Type> QuitPreference;
-
-	bool bIgnorePlatformRestrictions;
+	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Quit Command")
+	FQuitCommandData Data;
 };

@@ -6,6 +6,31 @@
 #include "BaseCommand.h"
 #include "OpenLevelCommand.generated.h"
 
+USTRUCT(BlueprintType)
+struct FOpenLevelCommandData
+{
+	GENERATED_BODY()
+
+	FOpenLevelCommandData(
+		const FName& InLevelName = NAME_None,
+		bool bInAbsolute = true,
+		const FString& InOptions = FString(TEXT(""))
+	)
+	{
+		LevelName = InLevelName;
+		bAbsolute = bInAbsolute;
+		Options = InOptions;
+	}
+
+	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Open Level Command")
+	FName LevelName;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Open Level Command")
+	bool bAbsolute;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Open Level Command")
+	FString Options;
+};
 
 /**
  * Command to open level
@@ -19,18 +44,15 @@ class COMMANDPACK_API UOpenLevelCommand : public UBaseCommand
 
 public:
 
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Command Pack | Open Level Command", meta=(AdvancedDisplay=1))
+	UFUNCTION(
+		BlueprintCallable,
+		BlueprintNativeEvent,
+		Category = "Command Pack | Open Level Command",
+		meta=(WorldContext = "InWorldContextObject", CallableWithoutWorldContext)
+	)
 	bool Init(
 		UPARAM(DisplayName="WorldContextObject") UObject* InWorldContextObject,
-		UPARAM(DisplayName="LevelName") FName InLevelName,
-		UPARAM(DisplayName="Absolute") bool bInAbsolute = true,
-		UPARAM(DisplayName="Options") const FString& InOptions = FString(TEXT(""))
-	);
-	virtual bool Init_Implementation(
-		UObject* InWorldContextObject,
-		FName InLevelName,
-		bool bInAbsolute,
-		const FString& InOptions
+		UPARAM(DisplayName="Data") FOpenLevelCommandData InData
 	);
 
 	virtual void Execute_Implementation() override;
@@ -38,11 +60,5 @@ public:
 protected:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Open Level Command")
-	FName LevelName;
-
-	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Open Level Command")
-	bool bAbsolute;
-
-	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Open Level Command")
-	FString Options;
+	FOpenLevelCommandData Data;
 };

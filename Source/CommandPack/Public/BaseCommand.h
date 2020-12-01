@@ -3,7 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
+#include "Engine.h"
+#include "UObject/Object.h"
+#include "GenericPlatform/GenericPlatformCrashContext.h"
 #include "BaseCommand.generated.h"
 
 /**
@@ -16,16 +18,19 @@ class COMMANDPACK_API UBaseCommand : public UObject
 
 public:
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Command Pack")
+	UFUNCTION(
+		BlueprintNativeEvent,
+		BlueprintCallable,
+		Category = "Command Pack | Base Command",
+		meta = (WorldContext = "InWorldContextObject", CallableWithoutWorldContext)
+	)
 	bool InitWorldContext(UObject* InWorldContextObject);
-	virtual bool InitWorldContext_Implementation(UObject* InWorldContextObject);
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Command Pack")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Command Pack | Base Command")
 	void Execute();
-	virtual void Execute_Implementation();
 
 protected:
 
-	UPROPERTY(BlueprintReadWrite, Category = "Command Pack")
+	UPROPERTY(BlueprintReadWrite, Category = "Command Pack | Base Command")
 	UObject* WorldContextObject;
 };

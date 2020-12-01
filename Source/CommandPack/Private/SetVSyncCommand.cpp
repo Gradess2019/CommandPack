@@ -6,21 +6,19 @@
 
 bool USetVSyncCommand::Init_Implementation(
 	UObject* InWorldContextObject,
-	bool bInEnable,
-	bool bInCheckCommandLineOverrides
+	FSetVSyncCommandData InData
 )
 {
 	const auto bResult = InitWorldContext(InWorldContextObject);
 
-	bEnable = bInEnable;
-	bCheckCommandLineOverrides = bInCheckCommandLineOverrides;
-
+	Data = InData;
+	
 	return bResult;
 }
 
 void USetVSyncCommand::Execute_Implementation()
 {
 	auto GameUserSettings = UGameUserSettings::GetGameUserSettings();
-	GameUserSettings->SetVSyncEnabled(bEnable);
-	GameUserSettings->ApplySettings(bCheckCommandLineOverrides);
+	GameUserSettings->SetVSyncEnabled(Data.bEnable);
+	GameUserSettings->ApplySettings(Data.bCheckCommandLineOverrides);
 }
